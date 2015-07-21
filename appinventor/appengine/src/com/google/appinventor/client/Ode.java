@@ -367,6 +367,7 @@ public class Ode implements EntryPoint {
       ProjectListBox.getProjectListBox().getProjectList().refreshTable(false);
     }
     currentView = PROJECTS;
+    // ViewerBox.getViewerBox().showSearchBox();
     getTopToolbar().updateFileMenuButtons(currentView);
     deckPanel.showWidget(projectsTabIndex);
   }
@@ -407,6 +408,7 @@ public class Ode implements EntryPoint {
     // ***** THE DESIGNER TAB DOES NOT DISPLAY CORRECTLY IF THERE IS NO CURRENT EDITOR. *****
     currentView = DESIGNER;
     getTopToolbar().updateFileMenuButtons(currentView);
+    // ViewerBox.getViewerBox().hideSearchBox();
     if (currentFileEditor != null) {
       deckPanel.showWidget(designTabIndex);
     } else {
@@ -925,10 +927,11 @@ public class Ode implements EntryPoint {
       dismissButton.addClickHandler(new ClickHandler() {
         @Override
         public void onClick(ClickEvent event) {
-          if (currentView == DESIGNER)
+          if (currentView == DESIGNER) {
             switchToDesignView();
-          else
+          } else {
             switchToProjectsView();
+          }
         }
       });
 

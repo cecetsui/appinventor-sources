@@ -748,6 +748,22 @@ public class BlocklyPanel extends HTMLPanel {
     doSwitchLanguage(formName, languageSetting);
   }
 
+ //****************************CURRENTLY ADDED (CECE) 7/20/15****************************//
+
+  public void startSearch(String query) {
+    doStartSearch(formName, query);
+  }
+
+  public void zoomToSearchBlock(int zoomTo) {
+    doZoomToSearchedBlock(formName,zoomTo);
+  }
+
+  public void stopSearch() {
+    doStopSearch(formName);
+  }
+
+ //****************************CURRENTLY ADDED (CECE) 7/20/15****************************//
+
   /**
    * Update the language setting within BlocklyPanel.java and switch to the
    * desired language.
@@ -942,6 +958,22 @@ public class BlocklyPanel extends HTMLPanel {
   public static native void doCheckWarnings(String formName) /*-{
     $wnd.Blocklies[formName].WarningHandler.checkAllBlocksForWarningsAndErrors();
   }-*/;
+
+ //****************************CURRENTLY ADDED (CECE) 7/20/15****************************//
+
+  public static native void doStartSearch(String formName, String query) /*-{
+    $wnd.Blocklies[formName].SearchBlocks.start(query);
+  }-*/;
+
+  public static native void doZoomToSearchedBlock(String formName, int zoomTo) /*-{
+    $wnd.Blocklies[formName].SearchBlocks.zoomToSearchedBlock(zoomTo);
+  }-*/;
+
+  public static native void doStopSearch(String formName) /*-{
+    $wnd.Blocklies[formName].SearchBlocks.stop();
+  }-*/;
+
+  //****************************CURRENTLY ADDED (CECE) 7/20/15****************************//
 
   public static native String getCompVersion() /*-{
     return $wnd.PREFERRED_COMPANION;

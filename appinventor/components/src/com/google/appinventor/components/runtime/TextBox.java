@@ -183,6 +183,7 @@ public final class TextBox extends TextBoxBase {
     view.setSingleLine(!multiLine);
   }
 
+
   // TODO(halabelson): We might also want a method to show the keyboard.
   // Currently the text box keyboard will open when the text field becomes
   // active, and that may be the best simple thing.  If we implement show keyboard,

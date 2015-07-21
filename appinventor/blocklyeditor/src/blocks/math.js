@@ -324,7 +324,7 @@ Blockly.Blocks['math_random_int'] = {
     this.interpolateMsg(Blockly.Msg.LANG_MATH_RANDOM_INT_INPUT,
         ['FROM', checkTypeNumber, Blockly.ALIGN_RIGHT],
         ['TO', checkTypeNumber, Blockly.ALIGN_RIGHT],
-        Blockly.ALIGN_RIGHT)
+        Blockly.ALIGN_RIGHT);
     /*this.appendValueInput('FROM')
      .setCheck(Blockly.Blocks.Utilities.YailTypeToBlocklyType("number",Blockly.Blocks.Utilities.INPUT))
      .appendField(Blockly.Msg.LANG_MATH_RANDOM_INT_TITLE_RANDOM)

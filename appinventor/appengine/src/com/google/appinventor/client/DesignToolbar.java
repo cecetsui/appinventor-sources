@@ -26,6 +26,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.appinventor.client.boxes.ViewerBox;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -297,6 +298,7 @@ public class DesignToolbar extends Toolbar {
         long projectId = Ode.getInstance().getCurrentYoungAndroidProjectRootNode().getProjectId();
         switchToScreen(projectId, currentProject.currentScreen, View.BLOCKS);
         toggleEditor(true);       // Gray out the blocks button and enable the designer button
+        ViewerBox.getViewerBox().showSearchBox();
         Ode.getInstance().getTopToolbar().updateFileMenuButtons(1);
       }
     }
@@ -314,6 +316,7 @@ public class DesignToolbar extends Toolbar {
         long projectId = Ode.getInstance().getCurrentYoungAndroidProjectRootNode().getProjectId();
         switchToScreen(projectId, currentProject.currentScreen, View.FORM);
         toggleEditor(false);      // Gray out the Designer button and enable the blocks button
+        ViewerBox.getViewerBox().hideSearchBox();
         Ode.getInstance().getTopToolbar().updateFileMenuButtons(1);
       }
     }

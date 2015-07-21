@@ -46,6 +46,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.appinventor.client.boxes.ViewerBox;
 
 import java.util.ArrayList;
 import java.util.List;

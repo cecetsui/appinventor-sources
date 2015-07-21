@@ -34,6 +34,9 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.TreeItem;
+import com.google.appinventor.client.boxes.ViewerBox;
+import com.google.appinventor.client.widgets.SearchBox;
+import com.google.gwt.user.client.ui.DockPanel;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -129,6 +132,11 @@ public final class YaBlocksEditor extends FileEditor
      }
     });
     initWidget(blocksArea);
+
+    SearchBox search = new SearchBox(blocksArea);
+
+    ViewerBox.getViewerBox().addSearchBox(search);
+    ViewerBox.getViewerBox().hideSearchBox();
 
     // Get references to the source structure explorer
     sourceStructureExplorer = BlockSelectorBox.getBlockSelectorBox().getSourceStructureExplorer();

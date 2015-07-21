@@ -14,6 +14,13 @@ import com.google.appinventor.client.widgets.boxes.Box;
 import com.google.appinventor.shared.rpc.project.ProjectRootNode;
 import com.google.gwt.user.client.Window;
 
+import com.google.gwt.user.client.ui.DockPanel;
+import java.util.ArrayList;
+import java.util.List;
+import com.google.appinventor.client.widgets.SearchBox;
+import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
+import com.google.gwt.user.client.ui.Grid;
+
 /**
  * Implementation for a box that can hold multiple viewers (including editors).
  *
@@ -21,6 +28,7 @@ import com.google.gwt.user.client.Window;
 public class ViewerBox extends Box {
   // Singleton viewer box instance
   private static final ViewerBox INSTANCE = new ViewerBox();
+  private SearchBox search;
 
   /**
    * Return the singleton viewer box.
@@ -39,6 +47,25 @@ public class ViewerBox extends Box {
         600,    // height
         false,  // minimizable
         false); // removable
+  }
+
+  public void hideSearchBox() {
+    if (this.search != null) {
+      this.search.setVisible(false);
+    }
+  }
+
+  public void showSearchBox() {
+    if (this.search != null) {
+      search.setVisible(true);
+    }
+  }
+
+  public void addSearchBox(SearchBox searchbox) {
+    // Grid layout = new Grid(1, this.getBoxWidth()/(this.getBoxWidth()/2));
+    this.search = searchbox;
+    // layout.setWidget(1, this.getBoxWidth()/(this.getBoxWidth()/2), this.search);
+    this.addWidgetToHeader(this.search, DockPanel.EAST);
   }
 
   /**

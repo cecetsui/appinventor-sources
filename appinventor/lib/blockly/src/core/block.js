@@ -54,7 +54,7 @@ Blockly.uidCounter_ = 0;
 
 /**
  * Get the Blockly.uidCounter_
- * @return {number}
+ * @return {number}===
  */
 Blockly.getUidCounter = function() {
   return Blockly.uidCounter_;
@@ -1631,6 +1631,7 @@ Blockly.Block.prototype.setCollapsed = function(collapsed) {
     Blockly.Instrument.stats.expandCollapsedCalls++;
     Blockly.Instrument.stats.expandCollapsedTime += timeDiff;
   }
+
 };
 
 /**
@@ -1638,20 +1639,22 @@ Blockly.Block.prototype.setCollapsed = function(collapsed) {
  * @param {?number} opt_maxLength Truncate the string to this length.
  * @return {string} Text of block.
  */
-Blockly.Block.prototype.toString = function(opt_maxLength) {
+Blockly.Block.prototype.toString = function(opt_maxLength, opt_getChild) {
   var text = [];
   for (var x = 0, input; input = this.inputList[x]; x++) {
     for (var y = 0, field; field = input.fieldRow[y]; y++) {
       text.push(field.getText());
     }
-    if (input.connection) {
-      var child = input.connection.targetBlock();
-      if (child) {
-        text.push(child.toString());
-      } else {
-        text.push('?');
-      }
-    }
+    if (opt_getChild == null || opt_getChild == true) {
+     if (input.connection) {
+       var child = input.connection.targetBlock();
+       if (child) {
+         text.push(child.toString());
+       } else {
+         text.push('?');
+       }
+     }
+   }
   }
   text = goog.string.trim(text.join(' ')) || '???';
   if (opt_maxLength) {
@@ -2115,3 +2118,38 @@ Blockly.Block.prototype.renderDown = function() {
   // [lyn, 04/08/14] Because renderDown is recursive, doesn't make sense to track its time here.
 };
 
+
+//CECE MADE CHANGES 6/7/15//
+/**
+ * Select this block.  Highlight it visually.
+ */
+Blockly.Block.prototype.searchHighlight = function() {
+  goog.asserts.assertObject(this.svg_, 'Block is not rendered.');
+  if (Blockly.searched) {
+    // Unselect any previously selected block.
+    Blockly.searched.unSearchHighlight();
+  }
+  Blockly.searched = this;
+  this.svg_.addSearchHighlight();
+  Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySearchedHighlight');
+};
+
+/**
+ * Unselect this block.  Remove its highlighting.
+ */
+Blockly.Block.prototype.unSearchHighlight = function() {
+  goog.asserts.assertObject(this.svg_, 'Block is not rendered.');
+  this.svg_.removeSearchHighlight();
+  Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySearchedHighlight');
+};
+
+Blockly.Block.prototype.setNotMatchColour = function() {
+  this.originalColour = this.getColour();
+  this.setColour(Blockly.NOT_MATCH_HUE);
+};
+
+Blockly.Block.prototype.revertColour = function() {
+  if (this.originalColour) {
+    this.setColour(this.originalColour);
+  }
+};

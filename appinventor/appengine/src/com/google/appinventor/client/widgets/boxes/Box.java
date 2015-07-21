@@ -31,6 +31,9 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
+
 import java.util.Map;
 
 /**
@@ -558,4 +561,14 @@ public abstract class Box extends HandlerPanel {
     element.setClassName(styleClass);
     getElement().appendChild(element);
   }
+
+  protected void addWidgetToHeader(Widget w, DockPanel.DockLayoutConstant direction) {
+    headerContainer.add(w, direction);
+  }
+
+  protected int getBoxWidth() {
+    return this.width;
+  }
+
+
 }

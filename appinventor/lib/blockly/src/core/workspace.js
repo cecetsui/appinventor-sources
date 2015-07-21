@@ -97,6 +97,7 @@ Blockly.Workspace.prototype.trashcan = null;
  */
 Blockly.Workspace.prototype.warningIndicator = null;
 
+
 /**
  * PID of upcoming firing of a change event.  Used to fire only one event
  * after multiple changes.

@@ -1241,3 +1241,24 @@ Blockly.BlockSvg.prototype.renderDrawLeft_ = function(steps, highlightSteps,
   }
   steps.push('z');
 };
+
+//CECE ADDED ON 6/7/15//
+/**
+ * Highlight searched block visually.
+ */
+Blockly.BlockSvg.prototype.addSearchHighlight = function() {
+    Blockly.addClass_(/** @type {!Element} */ (this.svgGroup_),
+        'blocklySearchedHighlight');
+    //??
+    // Move the selected block to the top of the stack.
+    this.svgGroup_.parentNode.appendChild(this.svgGroup_);
+    //??
+};
+
+/**
+ * Remove search highlighting.
+ */
+Blockly.BlockSvg.prototype.removeSearchHighlight = function() {
+    Blockly.removeClass_(/** @type {!Element} */ (this.svgGroup_),
+        'blocklySearchedHighlight');
+};

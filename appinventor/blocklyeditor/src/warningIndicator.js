@@ -12,6 +12,7 @@
 'use strict';
 
 goog.provide('Blockly.WarningIndicator');
+goog.require('Blockly.SearchBlocks');
 
 goog.require('goog.Timer');
 
@@ -134,6 +135,7 @@ Blockly.WarningIndicator.prototype.init = function() {
   Blockly.bindEvent_(this.warningToggle_, 'mouseup', this, Blockly.WarningIndicator.prototype.onclickWarningToggle);
   Blockly.bindEvent_(this.warningToggleText_, 'mouseup', this, Blockly.WarningIndicator.prototype.onclickWarningToggle);
 };
+
 
 /**
  * Dispose of this warning indicator.
