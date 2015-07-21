@@ -111,10 +111,12 @@
   <!-- <extend-property name="locale" values="zh_CN"/> -->
   <!-- Traditional Chinese -->
   <!-- <extend-property name="locale" values="zh_TW"/> -->
-  <!-- Spanish from Spain -->
+  <!-- Spanish from Spain -->s
   <!-- <extend-property name="locale" values="es_ES"/> -->
   <!-- Italian -->
   <!-- <extend-property name="locale" values="it_IT"/> -->
+  <!-- Russian -->
+  <!--<extend-property name="locale" values="ru"/>-->
   <set-property-fallback name="locale" value="en"/>
 
 </module>
