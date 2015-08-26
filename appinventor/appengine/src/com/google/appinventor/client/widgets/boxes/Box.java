@@ -566,6 +566,10 @@ public abstract class Box extends HandlerPanel {
     headerContainer.add(w, direction);
   }
 
+  protected void removeWidgetFromHeader(Widget w) {
+    headerContainer.remove(w);
+  }
+
   protected int getBoxWidth() {
     return this.width;
   }

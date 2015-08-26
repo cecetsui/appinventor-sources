@@ -63,4 +63,3 @@ Blockly.FieldGlobalFlydown.prototype.flydownBlocksXML_ = function() {
   return getterSetterXML;
 }
 
-

@@ -72,7 +72,7 @@ Blockly.Comment.prototype.createIcon_ = function() {
   <circle class="blocklyIconShield" r="8" cx="8" cy="8"/>
   <text class="blocklyIconMark" x="8" y="13">?</text>
   */
-  var iconShield = Blockly.createSvgElement('circle',
+  this.iconShield_ = Blockly.createSvgElement('circle',
       {'class': 'blocklyIconShield',
        'r': Blockly.Icon.RADIUS,
        'cx': Blockly.Icon.RADIUS,

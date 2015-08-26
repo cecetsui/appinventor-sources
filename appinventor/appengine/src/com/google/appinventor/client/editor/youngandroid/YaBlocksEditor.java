@@ -133,9 +133,8 @@ public final class YaBlocksEditor extends FileEditor
     });
     initWidget(blocksArea);
 
-    SearchBox search = new SearchBox(blocksArea);
-
-    ViewerBox.getViewerBox().addSearchBox(search);
+    // SearchBox search = new SearchBox(blocksArea);
+    ViewerBox.getViewerBox().addSearchBox(blocksArea);
     ViewerBox.getViewerBox().hideSearchBox();
 
     // Get references to the source structure explorer
@@ -617,6 +616,10 @@ public final class YaBlocksEditor extends FileEditor
    */
   protected String encodeFormAsJsonString() {
     return myFormEditor.encodeFormAsJsonString();
+  }
+
+  public BlocklyPanel getBlocksArea() {
+    return blocksArea;
   }
 
 }

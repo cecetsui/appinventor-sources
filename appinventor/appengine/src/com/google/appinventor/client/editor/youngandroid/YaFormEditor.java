@@ -160,6 +160,8 @@ public final class YaFormEditor extends SimpleEditor implements FormChangeListen
 
     initWidget(componentsPanel);
     setSize("100%", "100%");
+
+    ViewerBox.getViewerBox().hideSearchBox();
   }
 
   // FileEditor methods

@@ -13,13 +13,14 @@ import com.google.appinventor.client.output.OdeLog;
 import com.google.appinventor.client.widgets.boxes.Box;
 import com.google.appinventor.shared.rpc.project.ProjectRootNode;
 import com.google.gwt.user.client.Window;
-
 import com.google.gwt.user.client.ui.DockPanel;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.appinventor.client.widgets.SearchBox;
 import com.google.appinventor.client.editor.youngandroid.BlocklyPanel;
 import com.google.gwt.user.client.ui.Grid;
+import java.util.Map;
+import com.google.common.collect.Maps;
 
 /**
  * Implementation for a box that can hold multiple viewers (including editors).
@@ -29,6 +30,7 @@ public class ViewerBox extends Box {
   // Singleton viewer box instance
   private static final ViewerBox INSTANCE = new ViewerBox();
   private SearchBox search;
+  private final Map<String, BlocklyPanel> existingPanels = Maps.newHashMap();
 
   /**
    * Return the singleton viewer box.
@@ -61,11 +63,23 @@ public class ViewerBox extends Box {
     }
   }
 
-  public void addSearchBox(SearchBox searchbox) {
+  public void addExistingSearchBox(String formName) {
+    this.search.setBlocklyPanel(existingPanels.get(formName));
+  }
+
+  public void addSearchBox(BlocklyPanel panel) {
+    existingPanels.put(panel.getFormName(), panel);
+    if (this.search != null) {
+      this.search.setBlocklyPanel(panel);
+      OdeLog.log("Setting the Blockly Panel.");
+    } else {
     // Grid layout = new Grid(1, this.getBoxWidth()/(this.getBoxWidth()/2));
-    this.search = searchbox;
+      this.search = new SearchBox(panel);
+      OdeLog.log("Creating a new search box.");
     // layout.setWidget(1, this.getBoxWidth()/(this.getBoxWidth()/2), this.search);
-    this.addWidgetToHeader(this.search, DockPanel.EAST);
+      this.addWidgetToHeader(this.search, DockPanel.EAST);
+    }
+    //if not null, return (don't do anything)
   }
 
   /**

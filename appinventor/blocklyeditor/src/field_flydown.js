@@ -203,4 +203,17 @@ Blockly.FieldFlydown.prototype.dispose = function() {
   Blockly.FieldTextInput.prototype.dispose.call(this);
 };
 
+Blockly.FieldFlydown.prototype.greyOut = function() {
+    Blockly.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
+      this.fieldCSSClassName);
+      Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+      'blocklyIconGrey');
+}
+Blockly.FieldFlydown.prototype.revertColour = function() {
+      Blockly.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
+      'blocklyIconGrey');
+      Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+      this.fieldCSSClassName);
+}
+
 

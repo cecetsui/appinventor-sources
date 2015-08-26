@@ -302,6 +302,11 @@ Blockly.Css.CONTENT = [
   '  stroke: #ccc;',
   '}',
 
+  '.blocklyIconGrey {',
+  '  fill: #777;',
+  '  background-color: #777;',
+  '}',
+
   '.blocklyIconGroup:hover>.blocklyIconShield {',
   '  fill: #00f;',
   '  stroke: #fff;',

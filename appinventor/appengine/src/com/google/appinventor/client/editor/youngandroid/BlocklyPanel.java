@@ -762,6 +762,10 @@ public class BlocklyPanel extends HTMLPanel {
     doStopSearch(formName);
   }
 
+  public String getFormName() {
+    return formName;
+  }
+
  //****************************CURRENTLY ADDED (CECE) 7/20/15****************************//
 
   /**

@@ -1306,7 +1306,7 @@ Blockly.Block.prototype.getColour = function() {
  * Change the colour of a block.
  * @param {number|Array} hueOrRGBArray HSV hue value or array of RGB values.
  */
-Blockly.Block.prototype.setColour = function(hueOrRGBArray) {
+Blockly.Block.prototype.setColour = function(hueOrRGBArray, willGrey) {
   if(Array.isArray(hueOrRGBArray)) {
     this.rgbArray_ = hueOrRGBArray;
     this.colourHue_ = null;
@@ -1314,28 +1314,45 @@ Blockly.Block.prototype.setColour = function(hueOrRGBArray) {
     this.colourHue_ = hueOrRGBArray;
     this.rgbArray_ = null;
   }
-  this.updateColour();
+  this.updateColour(willGrey);
 };
 
 /**
  * Update the colour of a block.
  */
-Blockly.Block.prototype.updateColour = function() {
+Blockly.Block.prototype.updateColour = function(willGrey) {
   if (this.svg_) {
     this.svg_.updateColour();
   }
   var icons = this.getIcons();
   for (var x = 0; x < icons.length; x++) {
-    icons[x].updateColour();
+    if (willGrey) {
+      icons[x].greyOut(icons[x].iconShield_);
+    } else if (!willGrey) {
+      icons[x].revertColour(icons[x].iconShield_);
+    } else {
+      icons[x].updateColour();
+    }
   }
   if (this.errorIcon) {
-    this.errorIcon.updateColour();
+    if (willGrey) {
+      this.errorIcon.greyOut(this.errorIcon.iconShield_);
+    } else if (!willGrey) {
+      this.errorIcon.revertColour(this.errorIcon.iconShield_);
+    } else {
+      this.errorIcon.updateColour();
+    }
   }
   if (this.rendered) {
     // Bump every dropdown to change its colour.
     for (var x = 0, input; input = this.inputList[x]; x++) {
       for (var y = 0, field; field = input.fieldRow[y]; y++) {
         field.setText(null);
+        if (willGrey && field.fieldCSSClassName == "blocklyFieldParameter") {
+          field.greyOut();
+        } else if (!willGrey && field.fieldCSSClassName == "blocklyFieldParameter") {
+          field.revertColour();
+        }
       }
     }
     this.render();
@@ -2145,11 +2162,21 @@ Blockly.Block.prototype.unSearchHighlight = function() {
 
 Blockly.Block.prototype.setNotMatchColour = function() {
   this.originalColour = this.getColour();
-  this.setColour(Blockly.NOT_MATCH_HUE);
+  this.setColour(Blockly.NOT_MATCH_HUE, true);
+  // var icons = this.getIcons();
+  // for (var x = 0; x < icons.length; x++) {
+  //   var icon = icons[x];
+  //   icon.greyOut(icon.iconShield_);
+  // }
 };
 
 Blockly.Block.prototype.revertColour = function() {
   if (this.originalColour) {
-    this.setColour(this.originalColour);
+    this.setColour(this.originalColour, false);
   }
+  // var icons = this.getIcons();
+  // for (var x = 0; x < icons.length; x++) {
+  //   var icon = icons[x];
+  //   icon.revertColour(icon.iconShield_);
+  // }
 };

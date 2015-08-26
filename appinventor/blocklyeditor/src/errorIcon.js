@@ -85,7 +85,7 @@ Blockly.ErrorIcon.prototype.createIcon_ = function() {
   */
   this.iconGroup_ = Blockly.createSvgElement('g',
       {'class': 'blocklyIconGroup'}, null);
-  var iconShield = Blockly.createSvgElement('path',
+  this.iconShield_ = Blockly.createSvgElement('path',
       {'class': 'blocklyErrorIconShield',
        'd': 'M 2,15 Q -1,15 0.5,12 L 6.5,1.7 Q 8,-1 9.5,1.7 L 15.5,12 ' +
        'Q 17,15 14,15 z'},
@@ -281,3 +281,23 @@ Blockly.ErrorIcon.prototype.computeIconLocation = function() {
 Blockly.ErrorIcon.prototype.getIconLocation = function() {
   return {x: this.iconX_, y: this.iconY_};
 };
+
+Blockly.ErrorIcon.prototype.greyOut = function(iconShield) {
+  if (iconShield == null || iconShield == undefined) {
+    return;
+  }
+  Blockly.removeClass_(/** @type {!Element} */ (iconShield),
+    'blocklyErrorIconShield');
+  Blockly.addClass_(/** @type {!Element} */ (iconShield),
+                    'blocklyIconGrey');
+}
+
+Blockly.ErrorIcon.prototype.revertColour = function(iconShield) {
+  if (iconShield == null || iconShield == undefined) {
+    return;
+  }
+  Blockly.removeClass_(/** @type {!Element} */ (iconShield),
+    'blocklyIconGrey');
+  Blockly.addClass_(/** @type {!Element} */ (iconShield),
+    'blocklyErrorIconShield');
+}

@@ -67,6 +67,13 @@ Blockly.SearchBlocks.currentBlockView = -1;
 * @param {String} query The phrase, word, or query that stands as the criteria of search.
 **/
 Blockly.SearchBlocks.start = function(query) {
+  if (Blockly.SearchBlocks.matchBlocks != null || Blockly.SearchBlocks.matchBlocks != undefined) {
+    return;
+  }
+  if (Blockly.selected) {
+    Blockly.selected.unselect();
+    Blockly.selected = null;
+  }
   Blockly.SearchBlocks.getBlocks(query);
   Blockly.SearchBlocks.currentBlockView = -1;
   goog.events.unlisten(Blockly.TypeBlock.docKh_, 'key', Blockly.TypeBlock.handleKey);
@@ -129,7 +136,7 @@ Blockly.SearchBlocks.getBlocks = function(query) {
 * @param {number} upOrDown A number (-1 or 1) that would either view the next or previous block.
 **/
 Blockly.SearchBlocks.zoomToSearchedBlock = function(upOrDown) { //called when user presses up/down arrow key?
-  if (Blockly.SearchBlocks.matchBlocks == null) {
+  if (Blockly.SearchBlocks.matchBlocks == null || Blockly.SearchBlocks.matchBlocks.length <= 0) {
     return;
   }
   Blockly.TypeBlock.hide();
@@ -158,17 +165,22 @@ Blockly.SearchBlocks.zoomToSearchedBlock = function(upOrDown) { //called when us
     //If the block is in a collapsed block (meaning it has a value in collapsedBlocks)
     if (isCollapsedBlock != undefined) {
       //uncollapse block to view
+      isCollapsedBlock.searchHighlight();
       isCollapsedBlock.setCollapsed(false);
+      var isCollapsed = true;
       if (isCollapsedBlock != blockToView) {
         //If the block is not the block being viewed, grey it out. (Initially non-gray so user could 
           //see that the collapsed block also has a matching criteria)
         isCollapsedBlock.setNotMatchColour();
       }
+    } else {
+      var isCollapsed = false;
     }
+
     //Highlight block
     blockToView.searchHighlight();
     //Center block in the viewer
-    Blockly.mainWorkspace.scrollbar.centerScrolls(blockToView);
+    Blockly.mainWorkspace.scrollbar.centerScrolls(blockToView, isCollapsed);
 };
 
 /**
@@ -202,6 +214,10 @@ Blockly.SearchBlocks.stop = function() {
     goog.events.listen(Blockly.TypeBlock.docKh_, 'key', Blockly.TypeBlock.handleKey);
 };
 
+/**
+* Key Handler for the workspace after user has searched for the blocks. (Outside of the search box.)
+* @param {Event} e Event being listened for.
+**/
 Blockly.SearchBlocks.handleKey = function(e) {
   if (e.keyCode === 8 || e.keyCode === 46 || e.keyCode === 27) {
     Blockly.SearchBlocks.stop();
@@ -209,6 +225,8 @@ Blockly.SearchBlocks.handleKey = function(e) {
     Blockly.SearchBlocks.zoomToSearchedBlock(-1);
   } else if (e.keyCode === 38 || e.keyCode === 39) {
     Blockly.SearchBlocks.zoomToSearchedBlock(1);
+  } else {
+    return;
   }
 
 }

@@ -23,29 +23,23 @@ public class SearchBox extends Composite {
     private BlocklyPanel blockArea;
     private TextBox searchBox;
     private TextButton upButton, downButton;
-    private final Image upButtonPic = new Image("http://www.designofsignage.com/application/symbol/hospital/image/600x600/arrow-up.jpg");
-    private final Image downButtonPic = new Image("http://www.clipartbest.com/cliparts/dir/ozo/dirozod7T.jpeg");
-    private final String imageWH = "10";
+    private char upArrow = '\u2191';
+    private char downArrow = '\u2193';
 
-    public SearchBox(BlocklyPanel blocks) {
-        blockArea = blocks;
-
-
-        HorizontalPanel panel = new HorizontalPanel();
+    public SearchBox(BlocklyPanel panel) {
+        blockArea = panel;
 
 
+        HorizontalPanel hPanel = new HorizontalPanel();
 
-        upButtonPic.setSize(imageWH + "px", imageWH + "px");
-        downButtonPic.setSize(imageWH + "px", imageWH + "px");
-
-        upButton = new TextButton(upButtonPic);
+        upButton = new TextButton(Character.toString(upArrow));
         upButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent click) {
                 blockArea.zoomToSearchBlock(1);
             }
         });
 
-        downButton = new TextButton(downButtonPic);
+        downButton = new TextButton(Character.toString(downArrow));
         downButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent click) {
                 blockArea.zoomToSearchBlock(-1);
@@ -79,46 +73,17 @@ public class SearchBox extends Composite {
             }
         }) ;
 
-        panel.add(searchBox);
-        panel.add(upButton);
-        panel.add(downButton);
+        hPanel.add(searchBox);
+        hPanel.add(upButton);
+        hPanel.add(downButton);
 
         upButton.setEnabled(false);
         downButton.setEnabled(false);
 
-        initWidget(panel);
+        initWidget(hPanel);
     }
 
+    public void setBlocklyPanel(BlocklyPanel panel) {
+        this.blockArea = panel;
+    }
 }
-
-// public class SearchBox extends TextBox {
-
-//     private BlocklyPanel blockArea;
-
-//     public SearchBox(BlocklyPanel blocks) {
-//         super();
-//         setTitle("Search Blocks");
-//         getElement().setAttribute("placeholder","Search Blocks...");
-//         blockArea = blocks;
-//         addKeyDownHandler(new KeyDownHandler() {
-//             public void onKeyDown(KeyDownEvent event) {
-//                 String queried = getText();
-//                 int keyCode = event.getNativeKeyCode();
-//                 if ((keyCode == KeyCodes.KEY_ENTER) && (queried != "")) {
-//                     blockArea.startSearch(queried);
-//                     //Call start to search for blocks
-//                 } else if ((keyCode == KeyCodes.KEY_ESCAPE) || (keyCode == KeyCodes.KEY_DELETE) || (keyCode == KeyCodes.KEY_BACKSPACE)) {
-//                     //Call stop to stop the search (revert blocks' colors, collapse blocks, etc.)
-//                     blockArea.stopSearch();
-//                 } else if ((keyCode == KeyCodes.KEY_DOWN) || (keyCode == KeyCodes.KEY_LEFT)) {
-//                     blockArea.zoomToSearchBlock(-1);
-//                     //Call zoomToSearchedBlock to go to the previous block
-//                 } else if ((keyCode == KeyCodes.KEY_UP) || (keyCode == KeyCodes.KEY_RIGHT)) {
-//                     //Call zoomToSearchedBlock to go to the next block
-//                     blockArea.zoomToSearchBlock(1);
-//                 }
-//             }
-//         }) ;
-//     }
-
-// }
